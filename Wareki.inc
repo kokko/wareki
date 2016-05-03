@@ -14,22 +14,18 @@ $ARR_GENGOU = array(
 	'H'	=>	array(
 		'name'	=>	'平成',
 		'since'	=>	'1989-01-08',
-		'to'	=>	false,
 	),
 	'S'	=>	array(
 		'name'	=>	'昭和',
 		'since'	=>	'1926-12-25',
-		'to'	=>	'1989-01-07',
 	),
 	'T'	=>	array(
 		'name'	=>	'大正',
 		'since'	=>	'1912-07-30',
-		'to'	=>	'1926-12-24',
 	),
 	'M'	=>	array(
 		'name'	=>	'明治',
 		'since'	=>	'1868-01-25',
-		'to'	=>	'1912-07-29',
 	),
 );
 
@@ -40,7 +36,7 @@ class Wareki {
 	var $errors;
 
 	/**
-	 *	西暦(yyyy-mm-dd) → 和暦(gyy.mm.dd)
+	 *	西暦(yyyy-mm-dd) → 和暦(gee.mm.dd)
 	 *	$nihongo = true にすると日本語表記(例:平成28年5月3日)で返します。
 	 */
 	public static function ToWareki($seireki = null, $nihongo = false)
@@ -61,8 +57,7 @@ class Wareki {
 			//元号データを降順で探索
 			$now_gengou = '';
 			foreach ( $ARR_GENGOU as $gengou_letter => $gengou_info ) {
-				if ( (!$gengou_info['since'] || $gengou_info['since'] <= $seireki)
-				&&   (!$gengou_info['to']    || $seireki <= $gengou_info['to']) ) {
+				if ( $gengou_info['since'] <= $seireki )
 					$now_gengou = $gengou_letter;
 					break;
 				}
