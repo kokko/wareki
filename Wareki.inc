@@ -52,12 +52,13 @@ class Wareki {
 
 		//西暦日付が正しい形式か？
 		list($yy, $mm, $dd) = explode('-', $seireki);
-		if ( checkdate($mm, $dd, $yy) ) {
+//		if ( checkdate($mm, $dd, $yy) ) {
+		if ( strtotime($seireki) !== false ) {
 
 			//元号データを降順で探索
 			$now_gengou = '';
 			foreach ( $ARR_GENGOU as $gengou_letter => $gengou_info ) {
-				if ( $gengou_info['since'] <= $seireki )
+				if ( $gengou_info['since'] <= $seireki ) {
 					$now_gengou = $gengou_letter;
 					break;
 				}
